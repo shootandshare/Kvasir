@@ -1,0 +1,2 @@
+cd /wepayAdminApp
+npm start

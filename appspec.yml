@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /wepayAdminApp
+hooks:
+  BeforeInstall:
+    - location: Scripts/nodeCheck.sh
+  ApplicationStart:
+    - location: Scripts/start.sh
+      timeout: 3600
