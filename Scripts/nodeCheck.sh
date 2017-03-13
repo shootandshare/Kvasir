@@ -1,3 +1,4 @@
+source /home/ec2-user/.bash_profile
 if ! which npm; then
 	curl -L https://www.npmjs.com/install.sh | sh
 	export NVM_DIR="/.nvm"

@@ -1,3 +1,3 @@
-ln -s /usr/local/bin/npm /usr/bin/npm
+source /home/ec2-user/.bash_profile
 cd /wepayAdminApp
 npm start
