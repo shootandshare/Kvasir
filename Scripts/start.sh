@@ -1,2 +1,2 @@
 cd /wepayAdminApp
-sudo npm start
+npm start
