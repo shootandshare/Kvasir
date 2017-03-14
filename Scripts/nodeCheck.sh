@@ -10,5 +10,3 @@ if ! which npm; then
 	npm install npm@latest -g
 fi
 
-npm install npm@latest -g
-

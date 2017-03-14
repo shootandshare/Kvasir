@@ -6,6 +6,9 @@ files:
 hooks:
   BeforeInstall:
     - location: Scripts/nodeCheck.sh
+  AfterInstall:
+    - location: Scripts/install.sh
+      timeout: 180
   ApplicationStart:
     - location: Scripts/start.sh
       timeout: 3600
