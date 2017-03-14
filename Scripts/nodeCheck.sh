@@ -1,3 +1,4 @@
+Defaults:ec2-user !requiretty
 source /home/ec2-user/.bash_profile
 if ! which npm; then
 	sudo curl -L https://www.npmjs.com/install.sh | sudo sh
