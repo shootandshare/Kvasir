@@ -8,5 +8,7 @@ if ! which npm; then
 	curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 	yum -y install nodejs
 	npm install npm@latest -g
+	yum -y install git
 fi
 
+yum -y install git
