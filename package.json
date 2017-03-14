@@ -54,7 +54,7 @@
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2",
-    "wepay": "git://github.com/wepay/NodeJS-SDK.git",
+    "wepay": "https://github.com/wepay/NodeJS-SDK.git",
     "winston": "^2.2.0",
     "yargs": "^4.8.1"
   },
