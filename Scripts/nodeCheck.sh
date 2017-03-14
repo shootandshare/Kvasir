@@ -7,8 +7,8 @@ if ! which npm; then
 	# npm install 4.4.5
 	curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 	yum -y install nodejs
-	npm install 4.4.1
+	npm install npm@latest -g
 fi
 
-npm install 4.4.1
+npm install npm@latest -g
 
