@@ -1,4 +1,3 @@
-Defaults:
 source /home/ec2-user/.bash_profile
 if ! which npm; then
 	su -c curl -L https://www.npmjs.com/install.sh | su -c sh
