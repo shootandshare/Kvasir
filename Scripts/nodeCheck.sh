@@ -5,6 +5,7 @@ if ! which npm; then
 	# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 	# ln -s /usr/local/bin/npm /usr/bin/npm
 	# npm install 4.4.5
-	apt-get -y install nodejs npm
+	curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
+	yum -y install nodejs
 fi
 
