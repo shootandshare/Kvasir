@@ -9,6 +9,7 @@ if ! which npm; then
 	yum -y install nodejs
 	npm install npm@latest -g
 	yum -y install git
+	npm install forever -g
 fi
 
 yum -y install git
