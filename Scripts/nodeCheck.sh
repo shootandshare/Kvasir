@@ -12,4 +12,4 @@ if ! which npm; then
 	npm install forever -g
 fi
 
-yum -y install git
+npm install forever -g
