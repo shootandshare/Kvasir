@@ -62,8 +62,8 @@ var app_config = {
     },
     "middleware_test_uri": process.env.KVASIR_MIDDLEWARE_TEST_URI,
     "test_mode": argv.test,
-    "wepay_production": process.env.KVASIR_WEPAY_USE_PRODUCTION && process.env.KVASIR_WEPAY_USE_PRODUCTION == "true" ? true : false
-
+    "wepay_production": process.env.KVASIR_WEPAY_USE_PRODUCTION && process.env.KVASIR_WEPAY_USE_PRODUCTION == "true" ? true : false,
+    "host_name": process.env.KVASIR_HOST_NAME
 }
 
 
@@ -572,7 +572,7 @@ if (app_config.http_override) {
 else {
     var httpsServer = https.createServer(credentials, app);
 }
-httpsServer.listen(process.env.PORT || '8080', function(error) {
+httpsServer.listen(process.env.PORT || '8080', app_config.host_name, function(error) {
     if (error) {
         console.error(error)
     } else {
