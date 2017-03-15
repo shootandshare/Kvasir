@@ -39,6 +39,10 @@ var forever = require('forever-monitor');
     console.log(data);
   });
 
+  child.on('stderr', function (data) {
+    console.log(data);
+  })
+
   child.start();
 
 
