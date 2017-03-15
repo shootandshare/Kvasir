@@ -10,4 +10,7 @@ if ! which npm; then
 	npm install npm@latest -g
 	yum -y install git
 	npm install forever -g
+	npm install forever-monitor -g
 fi
+
+npm install forever-monitor -g
