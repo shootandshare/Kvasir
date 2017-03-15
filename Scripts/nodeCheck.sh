@@ -11,5 +11,3 @@ if ! which npm; then
 	yum -y install git
 	npm install forever -g
 fi
-
-npm install forever -g
