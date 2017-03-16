@@ -27,25 +27,6 @@ var argv = require("yargs").argv;
 console.log(argv);
 
 
-var forever = require('forever-monitor');
-
-  var child = new (forever.Monitor)('server.js', {
-    max: 3,
-    silent: false,
-    args: []
-  });
-
-  child.on('stdout', function (data) {
-    console.log(data);
-  });
-
-  child.on('stderr', function (data) {
-    console.log(data);
-  })
-
-  child.start();
-
-
 // load app configuration settings
 // pull all of the environment variables down into a dictionary
 var app_config = {
