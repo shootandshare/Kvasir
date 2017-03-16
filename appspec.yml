@@ -4,6 +4,8 @@ files:
   - source: /
     destination: /wepayAdminApp
 hooks:
+  ApplicationStop:
+    - location: Scripts/stop.sh
   BeforeInstall:
     - location: Scripts/nodeCheck.sh
   AfterInstall:
