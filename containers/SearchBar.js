@@ -158,7 +158,7 @@ var SearchBar = React.createClass({
                             onChange={this.handleChange} />
                         </Col>
                     </FormGroup>
-                    <input id="formSubmitButton" type="submit" onClick={this.handleChange} value="Search" />
+                    <input id="formSubmitButton" type="submit" onclick={this.handleChange} value="Search" />
                     <p>{error_message}</p>
                 </form>
             </div>
