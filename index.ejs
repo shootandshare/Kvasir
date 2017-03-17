@@ -48,7 +48,15 @@
 
             if (window.location.search) {
                 $('.form-group input').val(window.location.search.substring(1));
-                $('form').submit();
+                var element = $('.form-group input')[0];
+                if ("createEvent" in document) {
+                    var evt = document.createEvent("HTMLEvents");
+                    evt.initEvent("change", false, true);
+                    element.dispatchEvent(evt);
+                }
+                else {
+                    element.fireEvent("onchange");
+                }
             }
       });
     </script>
