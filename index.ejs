@@ -45,6 +45,11 @@
       /*enable tooltips*/
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
+
+            if (window.location.search) {
+                $('.form-group input').val(window.location.search.substring(1));
+                $('form').submit();
+            }
       });
     </script>
 </html>

@@ -29,13 +29,13 @@ var SearchBar = React.createClass({
      * Initially, it's just an empty search string and value
      */
     getInitialState: function(){
-        var search = '';
-        if (window.location.search) {
-            search = window.location.search.substring(1);
-        }
+        // var search = '';
+        // if (window.location.search) {
+        //     search = window.location.search.substring(1);
+        // }
         return { 
-            searchString: search,               // the search string we update on submit
-            value: search,                       // the value of the input text box
+            searchString: '',               // the search string we update on submit
+            value: '',                       // the value of the input text box
             resource: "user",                   // the value of the drop down box that tells us what we are searching for - merchant or payer
         };
     },
