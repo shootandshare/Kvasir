@@ -45,20 +45,15 @@
       /*enable tooltips*/
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
-
+          debugger;
             if (window.location.search) {
-                $('.form-group input').val(window.location.search.substring(1));
-
-                var element = $('.form-group input')[0];
-                if ("createEvent" in document) {
-                    var evt = document.createEvent("HTMLEvents");
-                    evt.initEvent("change", false, true);
-                    element.dispatchEvent(evt);
-                }
-                else {
-                    element.fireEvent("onchange");
-                }
+                var element = $('.form-group input');
+                element.val(window.location.search.substring(1));
+                var event = new Event('input', {bubbles: true});
+                element[0].dispatchEvent(event);
             }
+
+            $('#formSubmitButton').click();
       });
     </script>
 </html>
