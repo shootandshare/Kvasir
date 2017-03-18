@@ -150,7 +150,7 @@ var SearchBar = React.createClass({
                                 <option value ="payer" key="payer">Payer</option>
                             </FormControl>
                         </Col>
-                        <Col lg={10} sm={6}>
+                        <Col lg={8} sm={6}>
                         <FormControl 
                             type="text" 
                             value={this.state.value} 
