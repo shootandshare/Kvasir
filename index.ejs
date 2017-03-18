@@ -42,12 +42,27 @@
         </script>
     </body>
     <script text="script/javascript">
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
       /*enable tooltips*/
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
+          
             if (window.location.search) {
+                var searchText = '';
+                if (window.URLSearchParams) {
+                    var urlParams = new URLSearchParams(window.location.search);
+                    searchText = urlParams.get('username');
+                } else {
+                    searchText = getUrlParameter('username');
+                }
                 var element = $('.form-group input');
-                element.val(window.location.search.substring(1));
+                element.val(searchText);
                 var event = new Event('input', {bubbles: true});
                 element[0].dispatchEvent(event);
                 $('#formSubmitButton').click();
