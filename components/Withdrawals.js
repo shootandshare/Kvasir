@@ -169,7 +169,7 @@ var Withdrawals= React.createClass({
                         <TableHeaderColumn
                             dataField = "reserved_amount"
                             >
-                            Total Reserved ({reserve[0].currency})
+                            Total Reserved ({reserve[0] ? reserve[0].currency : "Currency"})
                         </TableHeaderColumn>
                         <TableHeaderColumn
                             dataField="amount"

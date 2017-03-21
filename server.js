@@ -154,10 +154,20 @@ app.set("view engine", "ejs");
  * So refreshing the page effectively kills all session information.
  */
 app.get("/", csrfProtection, function(req, res) {
+    var qSessionId = req.query.sessionid;
+    winston.info("session id: ", qSessionId);
+    
+    if (!qSessionId && !req.cookies.sessionid) {
+        res.status(401).send("Unauthorized!");
+    }
+
+    if (qSessionId) {
+        res.cookie('sessionid', qSessionId, {httpOnly: true});
+    }
     // render the main page with the csrf token
     winston.info("Loading page");
     res.render((__dirname + '/index.ejs'), {csrfToken: req.csrfToken()});
-})
+});
 
 /**
  * Verify that everything in the app configuration is going to work
@@ -258,7 +268,7 @@ function getWePayData(res, wepay_endpoint, access_token, package) {
  * @params data     - the package we use to query information about the provided resource
  * @params callback - a callback function to execute after the middleware returns information.  Typically this is `parseMiddlewareResponse`
  */
-function getDataFromMiddleware(resource, data, callback) {
+function getDataFromMiddleware(resource, data, sessionid, callback) {
     var uri = app_config.middleware_uri+"/"+resource;
     winston.info("Requesting data from middleware: ", uri, data);
     return request.post(
@@ -266,7 +276,8 @@ function getDataFromMiddleware(resource, data, callback) {
             url:    uri, 
             json:   data,
             headers: {
-                "Authorization":app_config.middleware_secret
+                "Authorization":app_config.middleware_secret,
+                "SessionID":sessionid
             }
 
         }, 
@@ -329,6 +340,7 @@ app.post("/user", csrfProtection, function(req, res) {
             "account_owner_email":email,
             "account_id": account_id
         }, 
+        req.cookies.sessionid,
         function(error, response, body) {
             return parseMiddlewareResponse(req, res, error, response, body, "/user", {});
         }
@@ -357,6 +369,7 @@ app.post('/account', csrfProtection, function(req, res){
         return getDataFromMiddleware(
             "user", 
             {"account_id":req.body.account_id}, 
+            req.cookies.sessionid,
             function(error, response, body){
                 parseMiddlewareResponse(req, res, error, response, body, wepay_endpoint, package)
         });
@@ -365,7 +378,11 @@ app.post('/account', csrfProtection, function(req, res){
     // otherwise lookup all accounts associated with the provided email
     winston.info("No account_id.  Looking for all accounts belonging to: ", req.body.email);
     wepay_endpoint = "/account/find";
-    return getDataFromMiddleware("user", {"account_owner_email": req.body.email}, function(error, response, body){
+    return getDataFromMiddleware(
+        "user", 
+        {"account_owner_email": req.body.email},
+        req.cookies.sessionid,
+         function(error, response, body){
         parseMiddlewareResponse(req, res, error, response, body, wepay_endpoint, package);
     });
 })
@@ -393,7 +410,11 @@ app.post("/checkout", csrfProtection, function(req, res) {
         wepay_endpoint = "/checkout/find";
     }
 
-    return getDataFromMiddleware("user", {"account_id":req.body.account_id}, function(error, response, body){
+    return getDataFromMiddleware(
+        "user", 
+        {"account_id":req.body.account_id},
+        req.cookies.sessionid, 
+        function(error, response, body){
         parseMiddlewareResponse(req, res, error, response, body, wepay_endpoint, package);
     });    
 })
@@ -414,6 +435,7 @@ app.post("/withdrawal", csrfProtection, function(req, res){
     return getDataFromMiddleware(
         "user", 
         {"account_id":req.body.account_id}, 
+        req.cookies.sessionid,
         function(error, response, body) {
             parseMiddlewareResponse(req, res, error, response, body, "/withdrawal/find", package);
     });
@@ -447,6 +469,7 @@ app.post("/refund", csrfProtection, function(req, res) {
     return getDataFromMiddleware(
         "user", 
         {"account_id":req.body.account_id}, 
+        req.cookies.sessionid,
         function(error, response, body){
             return parseMiddlewareResponse(req, res, error, response, body, "/checkout/refund", package)
         }
@@ -463,6 +486,7 @@ app.post("/reserve", csrfProtection, function(req, res) {
     return getDataFromMiddleware(
         "user",
         {"account_id": req.body.account_id},
+        req.cookies.sessionid,
         function(error, response, body) {
             return parseMiddlewareResponse(req, res, error, response, body, "/account/get_reserve_details", {"account_id":req.body.account_id});
         }
@@ -480,6 +504,7 @@ app.post("/payer", csrfProtection, function(req, res) {
     return getDataFromMiddleware(
         "payer", 
         {"payer_email":email, "num_elements":50}, 
+        req.cookies.sessionid,
         function(error, response, body) {
             return parseMiddlewareResponse(req, res, error, response, body, null, null);
         }
