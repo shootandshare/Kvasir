@@ -49,17 +49,28 @@
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         };
 
+        var parseQueryString = function( queryString ) {
+            var params = {}, queries, temp, i, l;
+            // Split into key/value pairs
+            queries = queryString.split("&");
+            // Convert the array of strings into an object
+            for ( i = 0, l = queries.length; i < l; i++ ) {
+                temp = queries[i].split('=');
+                params[temp[0]] = temp[1];
+            }
+            return params;
+        };
+
       /*enable tooltips*/
       $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
           
             if (window.location.search) {
                 var searchText = '';
-                if (window.URLSearchParams) {
-                    var urlParams = new URLSearchParams(window.location.search);
-                    searchText = urlParams.get('username');
-                } else {
-                    searchText = getUrlParameter('username');
+                var queryString = window.location.search.substring(1);
+                var qsParams = parseQueryString(queryString);
+                if (qsParams.hasOwnProperty('username')) {
+                    searchText = qsParams.username;
                 }
                 var element = $('.form-group input');
                 element.val(searchText);
