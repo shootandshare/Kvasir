@@ -24,18 +24,33 @@ import {addError, clearAllStates} from "../actions/errors"
 
 
 var SearchBar = React.createClass({
+    parseQueryString: function( queryString ) {
+        var params = {}, queries, temp, i, l;
+        // Split into key/value pairs
+        queries = queryString.split("&");
+        // Convert the array of strings into an object
+        for ( i = 0, l = queries.length; i < l; i++ ) {
+            temp = queries[i].split('=');
+            params[temp[0]] = temp[1];
+        }
+        return params;
+    },
     /**
      * Set the initial state of the search bar
      * Initially, it's just an empty search string and value
      */
     getInitialState: function(){
-        // var search = '';
-        // if (window.location.search) {
-        //     search = window.location.search.substring(1);
-        // }
+        var searchText = '';
+        if (window.location.search) {
+            var queryString = window.location.search.substring(1);
+            var qsParams = this.parseQueryString(queryString);
+                if (qsParams.hasOwnProperty('username')) {
+                    searchText = qsParams.username;
+                }
+        }
         return { 
-            searchString: '',               // the search string we update on submit
-            value: '',                       // the value of the input text box
+            searchString: searchText,               // the search string we update on submit
+            value: searchText,                       // the value of the input text box
             resource: "user",                   // the value of the drop down box that tells us what we are searching for - merchant or payer
         };
     },
