@@ -1,5 +1,5 @@
 # Kvasir
-Kvasir (Vas-eer) is a support dashboard meant for WePay partners to be able to provide their end-users with basic support.  
+Kvasir (Vas-eer) is a support dashboard meant for WePay partners to be able to provide their end-users with basic support.
 It will perform:
 
     - Account Lookups
@@ -44,3 +44,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+## Regarding Node.js on the EC2 instance:
+
+This app seems to sometimes stop or crash.  A reboot does not bring it back online.
+
+Currently we have used [forever](https://github.com/foreversd/forever) to get it running in the background.
+
+        cd /wepayAdminApp
+
+        sudo forever start server.js
+
+User's ip addresses must also be added to the security group for this EC2 instance: agree-prod-wepay-admin
+This app is not a part of the Elastic Beanstalk app environments.
